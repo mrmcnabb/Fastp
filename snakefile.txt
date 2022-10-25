@@ -1,0 +1,11 @@
+rule all:
+	input:
+		expand("results/{sample}.trimmed.fastq.gz", sample=config["samples"])
+	
+rule fastp:
+	input:
+		sample="samples/{sample}.fastq.gz"
+	output:
+		trimmed="results/{sample}.trimmed.fastq.gz"
+	shell:
+		"fastp -i {input.sample} -o {output.trimmed} -h trimmed_file.html"
